@@ -15,8 +15,6 @@ message = 'a passport must be issued'
 
 
 def check(param):
-    print(param['birthday'])
-    print(param['date_of_issue'])
     birthday = param['birthday'].split('-')
     date_of_issue = param['date_of_issue'].split('-')
     print(int(birthday[0]))
@@ -25,36 +23,45 @@ def check(param):
     print('result = ', result)
 
     if year - int(birthday[0]) == 14:
-        return print(check_birthday(birthday) & check_date_of_issue(date_of_issue, birthday))
+        return print(check_birthday(birthday, date_of_issue))
     if year - int(birthday[0]) == 20:
-        print(check_birthday(birthday), check_date_of_issue(date_of_issue, birthday))
-        return print(check_birthday(birthday) & check_date_of_issue(date_of_issue, birthday))
+        return print(check_birthday(birthday, date_of_issue))
     if year - int(birthday[0]) == 45:
-        return print(check_birthday(birthday) & check_date_of_issue(date_of_issue, birthday))
+        return print(check_birthday(birthday, date_of_issue))
     else:
         return print(True)
 
 
-def check_birthday(list_birthday):
-    if month == int(list_birthday[1]):
-        if day >= int(list_birthday[2]):
-            print(message, '==')
-            return True
-    elif month == int(list_birthday[1]) - 1:
-        if day >= int(list_birthday[2]):
-            print(message, '+1')
-            return True
+def check_birthday(list_birthday, list_date_of_issue):
+    if month >= int(list_birthday[1]):
+        if month == int(list_birthday[1]):
+            if day >= int(list_birthday[2]):
+                return True
+            else:
+                return True
+        elif month == int(list_birthday[1]) - 1:
+            if day <= int(list_birthday[2]):
+                return True
+            else:
+                return check_date_of_issue(list_date_of_issue, list_birthday)
+        else:
+            return check_date_of_issue(list_date_of_issue, list_birthday)
     else:
-        return False
+        return True
 
 
 def check_date_of_issue(list_date_of_issue, list_birthday):
     if year == int(list_date_of_issue[0]):
         print(int(list_date_of_issue[1]), int(list_birthday[1]))
-        if int(list_date_of_issue[1]) >= int(list_birthday[1]):
-            if int(list_date_of_issue[2]) >= int(list_birthday[2]):
-                print('here')
+        if month < int(list_date_of_issue[1]):
+            return True
+        elif month == int(list_date_of_issue[1]):
+            if day <= int(list_date_of_issue[2]):
                 return True
+            elif day > int(list_date_of_issue[2]):
+                return False
+        else:
+            return False
     else:
         return False
 
