@@ -1,9 +1,9 @@
-from datetime import datetime, date
+from datetime import datetime
 
 
 passport = {
     'birthday': '1973-04-28',
-    'date_of_issue': '2018-08-30'
+    'date_of_issue': '2018-05-30'
 }
 
 year = int(datetime.today().year)
@@ -17,9 +17,9 @@ def check(param):
 
     if year - int(birthday[0]) == 14:
         return print(check_birthday(birthday, date_of_issue))
-    if year - int(birthday[0]) == 20:
+    elif year - int(birthday[0]) == 20:
         return print(check_birthday(birthday, date_of_issue))
-    if year - int(birthday[0]) == 45:
+    elif year - int(birthday[0]) == 45:
         return print(check_birthday(birthday, date_of_issue))
     else:
         return print(True)
